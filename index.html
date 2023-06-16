@@ -35,8 +35,28 @@
 		<h2>Date function with Switch function</h2>
 		<div id="date-switch"></div>
 	</div>
-</body>
-<script type="text/javascript">
+	<div class="for-of">
+		<h2>For of</h2>
+		<div id="forin"></div>
+	</div>
+	<div class="for-In">
+		<h2>For in</h2>
+		<div id="forof"></div>
+	</div>
+	<div class="for-In">
+		<h2>Array of Objects</h2>
+		<div id="array-obj"></div>
+	</div>
+	<div class="try-catch">
+		<h2> Try, Cathch, Throw example</h2>
+		<label>Enter number here</label>
+		<input id="demo" type="text" />
+		<button type="button" onclick="trycatch()">click me</button>
+		<p id="p01"></p>
+	</div>
+	<script type="text/javascript">
+		// "use strict";
+	// Array list using for loop 
 	const animal = ["Cow","Dog","Cat","Buffalo","Camel","Donkey"];
 	let list = "<ul/>"
 	for (let i = 0; i < animal.length ; i++) {
@@ -44,7 +64,9 @@
 	}
 	list+= "</ul>"
 	document.getElementById("arry-box").innerHTML = list;
+	// Array list using for loop 
 
+	// Array list using for each 
 	const Fruits = ["Apple","Grapse","Orange","Mango","Cherry"];
 	let fList = "<ul>"
 	Fruits.forEach(myfunction);
@@ -54,13 +76,52 @@
 		fList+= "<li>" + value + "</li>";
 	}
 	document.getElementById("fruit-box").innerHTML = fList;
+	// Array list using for each 
 
+	// Array list using for of
+	let forin = "";
+	for (let x of Fruits) {
+		forin += x + " ";
+	}
+	document.getElementById("forin").innerHTML = forin;
+	// Array list using for of
+
+	// Array list using for in 
+	const carList = {name: "Swift", color: "red", average: "15"}
+	let cardet = ""
+	for (let x in carList) {
+		cardet += carList[x] + " ";
+	}
+	document.getElementById("forof").innerHTML = cardet;
+
+	const carDetList = [{name: "Swift", color: "red", average: "15"},{name: "Toyota", color: "white", average: "20"}]
+	let carText = "";
+	for (let x of carDetList) {
+		// carText += x.name + " " + x.color + " " + x.average + "<br>";
+		for (let y in x) {
+			carText += x[y] + " ";
+		}
+		carText+= "<br/>"
+	}
+
+	// carText+= carDetList.map(function(item) {return item.name + " " + item.color + " " + item.average + "<br>"}) ;
+
+
+	document.getElementById("array-obj").innerHTML = carText;
+	// Array list using for in
+
+	// Map function  
 	const numbers1 = [45, 4, 9, 16, 25];
 	const numbers2 = numbers1.map((value) => {return value * 2});
 	document.getElementById("number").innerHTML = numbers2;
+	// Map function 
 
+	// Flat Map function 
 	const numbers3 = numbers1.flatMap((value) => value * 3);
 	document.getElementById("number2").innerHTML = numbers3;
+	// Flat Map function 
+
+	// Min, max, fliter 
 	document.getElementById("max").innerHTML = Math.max.apply(null,numbers2);
 	document.getElementById("sorting").innerHTML = numbers3.sort(function(a,b) {return a-b});
 	const filterArray = numbers2.filter(filterFunction);
@@ -68,6 +129,9 @@
 		return value > 18;
 	}
 	document.getElementById("filter").innerHTML = filterArray;
+	// Min, max, fliter 
+
+	// Form validation
 	function validateForm() {
 	  let x = document.forms["myForm"]["name"].value;
 	  if (x == "") {
@@ -75,6 +139,9 @@
 	    return false;
 	  }
 	}
+	// Form validation
+
+	//Switch case 
 	let day;
 	switch (new Date().getDay()) {
 	  case 0:
@@ -99,5 +166,26 @@
 	    day = "Saturday";
 	}
 	document.getElementById("date-switch").innerHTML = "Today is " + day;
+	//Switch case 
+
+	// try catch function]
+	function trycatch() {
+	  const message = document.getElementById("p01");
+	  message.innerHTML = "";
+	  let x = document.getElementById("demo").value;
+	  try { 
+	    if(x.trim() == "")  throw "empty";
+	    if(isNaN(x)) throw "not a number";
+	    x = Number(x);
+	    if(x < 5)  throw "too low";
+	    if(x > 10)   throw "too high";
+	  }
+	  catch(err) {
+	    message.innerHTML = "Input is " + err;
+	  }
+	}
+	//try catch function
 </script>
+</body>
+
 </html>
