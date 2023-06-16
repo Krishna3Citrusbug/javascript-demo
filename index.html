@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Javascript - Practical</title>
+</head>
+<body>
+     <div class="Array">
+     	<h2>Animal List</h2>
+     	<div class="array-list" id="arry-box"></div>
+     </div>
+     <div class="Array">
+     	<h2>Fruits List</h2>
+     	<div class="array-list" id="fruit-box"></div>
+     </div>
+
+     <div class="number array">
+     	<h2> Number List</h2>
+     	<div id="number"></div>
+     	<div id="number2"></div>
+
+     	<h2> Max and Min value</h2>
+     	<div id="max"></div>
+     	<h2>sorting</h2>
+     	<div id="sorting"></div>
+     	<h2>Array Filter</h2>
+     	<div id="filter"></div>
+     </div>
+     <form name="myForm" onsubmit="return validateForm()" method="post">
+	  Name: <input type="text" name="name">
+	  <input type="submit" value="Submit">
+	</form>
+	<div class="date-switch">
+		<h2>Date function with Switch function</h2>
+		<div id="date-switch"></div>
+	</div>
+</body>
+<script type="text/javascript">
+	const animal = ["Cow","Dog","Cat","Buffalo","Camel","Donkey"];
+	let list = "<ul/>"
+	for (let i = 0; i < animal.length ; i++) {
+		list += "<li>" + animal[i] + "</li>";
+	}
+	list+= "</ul>"
+	document.getElementById("arry-box").innerHTML = list;
+
+	const Fruits = ["Apple","Grapse","Orange","Mango","Cherry"];
+	let fList = "<ul>"
+	Fruits.forEach(myfunction);
+	fList+= "</ul>"
+
+	function myfunction(value) {
+		fList+= "<li>" + value + "</li>";
+	}
+	document.getElementById("fruit-box").innerHTML = fList;
+
+	const numbers1 = [45, 4, 9, 16, 25];
+	const numbers2 = numbers1.map((value) => {return value * 2});
+	document.getElementById("number").innerHTML = numbers2;
+
+	const numbers3 = numbers1.flatMap((value) => value * 3);
+	document.getElementById("number2").innerHTML = numbers3;
+	document.getElementById("max").innerHTML = Math.max.apply(null,numbers2);
+	document.getElementById("sorting").innerHTML = numbers3.sort(function(a,b) {return a-b});
+	const filterArray = numbers2.filter(filterFunction);
+	function filterFunction(value, index, array) {
+		return value > 18;
+	}
+	document.getElementById("filter").innerHTML = filterArray;
+	function validateForm() {
+	  let x = document.forms["myForm"]["name"].value;
+	  if (x == "") {
+	    alert("Please Enter NAme");
+	    return false;
+	  }
+	}
+	let day;
+	switch (new Date().getDay()) {
+	  case 0:
+	    day = "Sunday";
+	    break;
+	  case 1:
+	    day = "Monday";
+	    break;
+	  case 2:
+	    day = "Tuesday";
+	    break;
+	  case 3:
+	    day = "Wednesday";
+	    break;
+	  case 4:
+	    day = "Thursday";
+	    break;
+	  case 5:
+	    day = "Friday";
+	    break;
+	  case  6:
+	    day = "Saturday";
+	}
+	document.getElementById("date-switch").innerHTML = "Today is " + day;
+</script>
+</html>
