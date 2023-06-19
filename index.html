@@ -27,26 +27,32 @@
      	<h2>Array Filter</h2>
      	<div id="filter"></div>
      </div>
+
      <form name="myForm" onsubmit="return validateForm()" method="post">
 	  Name: <input type="text" name="name">
 	  <input type="submit" value="Submit">
 	</form>
+
 	<div class="date-switch">
 		<h2>Date function with Switch function</h2>
 		<div id="date-switch"></div>
 	</div>
+
 	<div class="for-of">
 		<h2>For of</h2>
 		<div id="forin"></div>
 	</div>
+
 	<div class="for-In">
 		<h2>For in</h2>
 		<div id="forof"></div>
 	</div>
+
 	<div class="for-In">
 		<h2>Array of Objects</h2>
 		<div id="array-obj"></div>
 	</div>
+
 	<div class="try-catch">
 		<h2> Try, Cathch, Throw example</h2>
 		<label>Enter number here</label>
@@ -54,6 +60,17 @@
 		<button type="button" onclick="trycatch()">click me</button>
 		<p id="p01"></p>
 	</div>
+
+	<div class="constructor">
+		<h2>Constructor Example</h2>
+		<div id="cons-obj"></div>
+	</div>
+
+	<div class="nested-array">
+		<h2>Nested JavaScript Objects and Arrays.</h2>
+		<div id="nested"></div>
+	</div>
+
 	<script type="text/javascript">
 		// "use strict";
 	// Array list using for loop 
@@ -174,7 +191,7 @@
 	  message.innerHTML = "";
 	  let x = document.getElementById("demo").value;
 	  try { 
-	    if(x.trim() == "")  throw "empty";
+	    if(x.trim() === "")  throw "empty";
 	    if(isNaN(x)) throw "not a number";
 	    x = Number(x);
 	    if(x < 5)  throw "too low";
@@ -185,6 +202,44 @@
 	  }
 	}
 	//try catch function
+
+
+	// Cunstroctor example start
+	class car {
+		constructor(name,year) {
+			this.name = name;
+			this.year = year;
+		}
+		age() {
+			const date = new Date();
+			return date.getFullYear() - this.year
+		}
+	}
+	const car1 = new car("Ford", 2019)
+	document.getElementById("cons-obj").innerHTML = "Car name is " + car1.name + ", " + "Purchase year: " + car1.year + " , age is : " + car1.age();
+	// Cunstructor example End
+
+	// nested object and array example start
+	const myObj = {
+		name : "John",
+		cars: [
+			{name: "Ford", models:["Fiesta", "Focus", "Mustang"]},
+			{name:"BMW", models:["320", "X3", "X5"]},
+	    		{name:"Fiat", models:["500", "Panda"]}
+    		]
+	}
+	// nested object and array example end
+	let x = "";
+	for (let i in myObj.cars) {
+		x += "<h3>" + myObj.cars[i].name + "</h3>";
+		for(let j of myObj.cars[i].models) {
+			x += "<p>" + j + "</p>";
+		}
+		// for(let j in myObj.cars[i].models) {
+		// 	x += "<p>" + myObj.cars[i].models[j] + "</p>";
+		// }
+	} 
+	document.getElementById("nested").innerHTML = x;
 </script>
 </body>
 
