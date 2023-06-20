@@ -71,6 +71,10 @@
 		<div id="nested"></div>
 	</div>
 
+	<div>
+		<h2>Object Accessors </h2>
+		<div id="obj"></div>
+	</div>
 	<script type="text/javascript">
 		// "use strict";
 	// Array list using for loop 
@@ -228,7 +232,7 @@
 	    		{name:"Fiat", models:["500", "Panda"]}
     		]
 	}
-	// nested object and array example end
+
 	let x = "";
 	for (let i in myObj.cars) {
 		x += "<h3>" + myObj.cars[i].name + "</h3>";
@@ -240,6 +244,29 @@
 		// }
 	} 
 	document.getElementById("nested").innerHTML = x;
+	// nested object and array example end
+
+	// Object accessors start
+	const myObject = {count: 0};
+	Object.defineProperty(myObject, "reset" , {
+		get: function() { return this.count = 52 ;}
+	})
+	Object.defineProperty(myObject, "increment", {
+		get: function() { return this.count++ ;}
+	})
+	Object.defineProperty(myObject, "add", {
+		set: function(value) { return this.count += value;}
+	})
+	Object.defineProperty(myObject, "substract", {
+		set: function(value) { return this.count -= value;}
+	})
+
+	myObject.reset;
+	myObject.increment;
+	myObject.add = 5;
+	myObject.substract = 2;
+	document.getElementById("obj").innerHTML = myObject.count;
+	// Object accessors end
 </script>
 </body>
 
