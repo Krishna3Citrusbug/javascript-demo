@@ -4,11 +4,52 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Javascript - task 1</title>
+	<style type="text/css">
+		.form-wrapper h2 {
+			text-align: center;
+			margin-bottom: 30px;
+		}
+		form.custom-form {
+		    max-width: 500px;
+		    margin: 50px auto;
+		}
+		.form-group label {
+		    display: block;
+		    margin-bottom: 6px;
+		    text-align: left;
+		}
+		.form-group {
+			margin-bottom: 15px;
+			text-align: center;
+		}
+		.form-group input {
+			width: 100%;
+			border: 1px solid #aaa;
+			border-radius: 5px;
+			height: 34px;
+			padding: 5px 15px;
+			box-sizing: border-box;
+		}
+		.form-group button {
+			background: #777;
+			color: #fff;
+			border-color: #aaa;
+			padding: 9px 15px;
+			border-radius: 5px;
+			box-shadow: none;
+			outline: none;
+			font-size: 16px;
+			font-weight: 600;
+			border: none;
+			display: inline-block;
+			margin: 10px auto;
+		}
+	</style>
 </head>
 <body>
      <div class="form-wrapper">
      	<h2>JavaScript Task - 1</h2>
-	     <form name="myForm" onsubmit="return validateForm();" method="post">
+	     <form class="custom-form" name="myForm" onsubmit="return validateForm();" method="post">
 		  	<div class="form-group">
 		  		<label>Name</label>
 		  		<input type="text" name="Name" />
@@ -43,13 +84,12 @@
 			let zipcode = document.forms.myForm.Zipcode;
 			let birthdate = document.forms.myForm.Date;
 			//field pattern
-			//let namePattern = /\d+$/g;
 			let emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g;
 			let phonePattern=/^\d{10}$/;
 			// let zipcoePattern = /(^\d{6}$)/;	
 			let zipcoePattern = /^[1-9]{1}[0-9]{2}\s{0,1}[0-9]{3}$/;
-			let datePattern = /^\d\d\/\d\d\/\d\d\d\d$/;	
-			// let datePattern = /^(0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])[\/\-]\d{4}$/;
+			// let datePattern = /^\d\d\/\d\d\/\d\d\d\d$/;	
+			let datePattern = /^(0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])[\/\-]\d{4}$/;
 
 			if (name.value == "") {
 				window.alert("Please enter name");
@@ -91,67 +131,70 @@
 				birthdate.focus();
 				return false;
 			}
-			if (!datePattern.test(birthdate.value)) {
-				window.alert("Please enter valid birthdate");
-				birthdate.focus();
-				return false;
-			}
-			// if(!birthdate.value.match(dateformat))
-			// {
+			// if (!datePattern.test(birthdate.value)) {
+			// 	window.alert("Please enter valid birthdate");
+			// 	birthdate.focus();
+			// 	return false;
+			// }
+			if(datePattern.test(birthdate.value))
+			{
 
-		 //  		birthdate.focus();
-			//   	//Test which seperator is used '/' or '-'
-			//   	var opera1 = birthdate.value.split('/');
-			//   	var opera2 = birthdate.value.split('-');
-			//   	lopera1 = opera1.length;
-			//   	lopera2 = opera2.length;
-			//   	// Extract the string into month, date and year
-			//   	if (lopera1>1)
-			//   	{
-			//   		var pdate = birthdate.value.split('/');
-			//   	}
-			//   	else if (lopera2>1)
-			//   	{
-			//   		var pdate = birthdate.value.split('-');
-			//   	}
-			//   	var mm  = parseInt(pdate[0]);
-			//   	var dd = parseInt(pdate[1]);
-			//   	var yy = parseInt(pdate[2]);
-			//   	// Create list of days of a month [assume there is no leap year by default]
-			//   	var ListofDays = [31,28,31,30,31,30,31,31,30,31,30,31];
-			//   	if (mm==1 || mm>2)
-			//   	{
-			// 	  if (dd>ListofDays[mm-1])
-			// 	  {
-			// 	  alert('Invalid date format!');
-			// 	  return false;
-			// 	  }
-		 //  		}
-			//   	if (mm==2)
-			//   	{
-			//   		var lyear = false;
-			// 	  	if ( (!(yy % 4) && yy % 100) || !(yy % 400)) 
-			// 	  	{
-			// 	  		lyear = true;
-			// 	  	}
-			// 	  	if ((lyear==false) && (dd>=29))
-			// 	  	{
-			// 		  	alert('Invalid date format!');
-			// 		  	return false;
-			// 	  	}
-			// 	  	if ((lyear==true) && (dd>29))
-			// 	  	{
-			// 		  	alert('Invalid date format!');
-			// 		  	return false;
-			// 	  	}
-			//   	}
-			// }
-			// else
-			// {
-			//   	alert("Invalid date format!");
-			//   	birthdate.focus();
-			//   	return false;
-			// }
+		  		birthdate.focus();
+			  	//Test which seperator is used '/' or '-'
+			  	var opera1 = birthdate.value.split('/');
+			  	var opera2 = birthdate.value.split('-');
+			  	lopera1 = opera1.length;
+			  	lopera2 = opera2.length;
+			  	// Extract the string into month, date and year
+			  	if (lopera1>1)
+			  	{
+			  		var pdate = birthdate.value.split('/');
+			  	}
+			  	else if (lopera2>1)
+			  	{
+			  		var pdate = birthdate.value.split('-');
+			  	}
+			  	var mm  = parseInt(pdate[0]);
+			  	var dd = parseInt(pdate[1]);
+			  	var yy = parseInt(pdate[2]);
+			  	// Create list of days of a month [assume there is no leap year by default]
+			  	var ListofDays = [31,28,31,30,31,30,31,31,30,31,30,31];
+			  	if (mm==1 || mm>2)
+			  	{
+				  if (dd>ListofDays[mm-1])
+				  {
+				  alert('Invalid date format!');
+				  birthdate.focus();
+				  return false;
+				  }
+		  		}
+			  	if (mm==2)
+			  	{
+			  		var lyear = false;
+				  	if ( (!(yy % 4) && yy % 100) || !(yy % 400)) 
+				  	{
+				  		lyear = true;
+				  	}
+				  	if ((lyear==false) && (dd>=29))
+				  	{
+				  		birthdate.focus();
+					  	alert('Invalid date format!');
+					  	return false;
+				  	}
+				  	if ((lyear==true) && (dd>29))
+				  	{				  		
+					  	alert('Invalid date format!');
+					  	birthdate.focus();
+					  	return false;
+				  	}
+			  	}
+			}
+			else
+			{
+			  	alert("Invalid date format!");
+			  	birthdate.focus();
+			  	return false;
+			}
 			
 			window.alert("Data submitted successfully");
 			// return true;
