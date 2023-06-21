@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Javascript - task 2</title>
+	<style type="text/css">
+		.form-wrapper h2 {
+			text-align: center;
+			margin-bottom: 30px;
+		}
+		.steps-box span.step {
+		    font-size: 17px;
+		    font-weight: bold;
+		    background: #777;
+		    padding: 8px 15px;
+		    border-radius: 7px;
+		    color: #fff;
+		}
+		.steps-box span.step.active {
+			background: #000;
+		}
+		.steps-box span.step.completed {
+			background: #856ad2;
+		}
+		.steps-box span.step.completed.active {
+			background: #4b2ca6;
+		}
+		form.custom-form {
+		    max-width: 700px;
+		    margin: 50px auto;
+		}
+		.form-group>label {
+		    display: block;
+		    margin-bottom: 6px;
+		    text-align: left;
+		}
+		.form-group {
+			margin-bottom: 15px;
+			text-align: left;
+		}
+		.form-group input.text-input {
+			width: 100%;
+			border: 1px solid #aaa;
+			border-radius: 5px;
+			height: 34px;
+			padding: 5px 15px;
+			box-sizing: border-box;
+		}
+		button {
+			background: #777;
+			color: #fff;
+			border-color: #aaa;
+			padding: 9px 15px;
+			border-radius: 5px;
+			box-shadow: none;
+			outline: none;
+			font-size: 16px;
+			font-weight: 600;
+			border: none;
+			display: inline-block;
+			cursor: pointer;
+			/*margin: 10px auto;*/
+		}
+		.steps-box {
+		    max-width: 700px;
+		    margin: 0 auto;
+		    display: flex;
+		    justify-content: space-between;
+		}
+		.btn-section {
+		    margin-top: 30px;
+		    display: flex;
+		    justify-content: space-between;
+		    width: 100%;
+		}
+		button.prev {
+		    margin-right: auto;
+		}
+		button.next {
+		    margin-left: auto;
+		}
+		.step-content {
+			display: none;
+		}
+		#show-data {
+			max-width: 700px;
+		    margin: 50px auto;
+		}
+	</style>
+</head>
+<body>
+     <div class="form-wrapper">
+     	<h2>JavaScript Task - 2</h2>
+     	<div id="steps-content">
+	     	<div class="steps-box">
+	     		<span class="step">Step1</span>
+	     		<span class="step">Step2</span>
+	     		<span class="step">Step3</span>
+	     		<span class="step">Step4</span>
+	     	</div>
+		     <form class="custom-form"  id="step-form" name="myForm" onsubmit="return showFormData();" method="post">
+
+		     	<div class="step-content">
+				  	<div class="form-group">
+				  		<label>Name</label>
+				  		<input class="text-input" type="text" name="Name" />
+				  	</div>
+				</div>
+				<div class="step-content">
+				  	<div class="form-group">
+				  		<label>Email</label>
+				  		<input class="text-input" type="text" name="Email" />
+				  	</div>
+				</div>
+				<div class="step-content">
+				  	<div class="form-group">
+				  		<label>Gender</label>
+				  		<div class="gender">
+				  			<input type="radio" id="male" name="Gender" value="Male">
+							<label for="male">Male</label><br>
+							<input type="radio" id="female" name="Gender" value="Female">
+							<label for="female">Female</label><br>
+							<input type="radio" id="other" name="Gender" value="Other">
+							<label for="other">Other</label>
+				  		</div>
+				  	</div>
+				</div>
+				<div class="step-content">
+					<div class="form-group">
+				  		<label>Age</label>
+				  		<input class="text-input" type="number" min="0" max="120" name="Age" />
+				  	</div>
+				</div>
+
+				<div class="btn-section">
+					<button type="button" class="prev" id="prev" onclick="changeStep(-1)">Prev</button>
+					<button type="button" class="next" id="next" onclick="changeStep(1)">Next</button>
+				</div>
+			  	<!-- <div class="form-group">
+			  		<button type="submit">Submit</button>
+			  	</div> -->
+			</form>
+		</div>
+		<div id="show-data" style="display: none;">
+			<h1>Data Submitted Successfully</h1>
+			<h3 id="show-name"></h3>
+			<h3 id="show-email"></h3>
+			<h3 id="show-gender"></h3>
+			<h3 id="show-age"></h3>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		
+		var currentStep = 0;
+		showStep(currentStep);
+		
+		function showStep(i){
+			var stepList = document.getElementsByClassName("step-content");
+			//console.log(stepList);
+			stepList[i].style.display = "block";
+			if(i == 0) {
+				document.getElementById("prev").style.display = "none";
+			}
+			else {
+				document.getElementById("prev").style.display = "inline-block";
+			}
+			if(i >= (stepList.length - 1)) {
+				document.getElementById("next").innerHTML = "Finish";
+			}
+			stepActiveStatus(i);
+		}
+
+		function changeStep(n) {
+			var stepList = document.getElementsByClassName("step-content");
+			let stepindex = document.getElementsByClassName("step");
+			// for(let i=0 ; i < stepList.length ; i++) {
+			if (n == 1 && !validateForm(currentStep)) {
+				return false;
+			}
+			
+			stepList[currentStep].style.display = "none";
+			// console.log(currentStep);
+			if (n > 0) {
+				stepindex[currentStep].classList.add("completed");
+			}
+			currentStep += n;				
+			
+			if (currentStep >= stepList.length) {
+				document.getElementById("next").type = "submit";
+		          return false;
+		     }
+			showStep(currentStep);
+		}
+
+		function validateForm(i) {
+			let name = document.forms.myForm.Name;
+			let email = document.forms.myForm.Email;
+			let gender = document.forms.myForm.Gender;
+			let age = document.forms.myForm.Age;
+			//field pattern
+			let emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g;
+
+			if (i == 0) {
+				if (name.value == "") {
+					window.alert("Please enter name");
+					name.focus();
+					return false;
+				}
+				if (!isNaN(name.value)) {
+					window.alert("Please enter valid name");
+					name.focus();
+					return false;
+				}
+				localStorage.setItem("fname", name.value);
+				return true;
+
+			}
+			if (i == 1) {
+				if (email.value == "") {
+					window.alert("Please enter email");
+					email.focus();
+					return false;
+				}
+				if (!emailPattern.test(email.value)) {
+					window.alert("Please enter valid email");
+					email.focus();
+					return false;
+				}
+				localStorage.setItem("femail", email.value);
+				return true;
+			}
+			if (i == 2) {
+				if (gender.value == "") {
+					window.alert("Please select gender");
+					// gender.focus();
+					return false;
+				}
+				localStorage.setItem("fgender", gender.value);
+				return true;
+			}
+			if (i == 3) {
+				if (age.value == "") {
+					window.alert("Please enter age");
+					age.focus();
+					return false;
+				}
+				localStorage.setItem("fage", age.value);
+				return true;
+			}
+		}
+
+		function stepActiveStatus(i){
+			let stepindex = document.getElementsByClassName("step");
+			for(let x of stepindex) {
+				x.classList.remove("active");
+			}
+			stepindex[i].classList.add("active");
+		}
+
+		function showFormData() {
+			document.getElementById("steps-content").style.display = "none";
+			document.getElementById("show-data").style.display = "block";
+			document.getElementById("show-name").innerHTML = "Name is : " + localStorage.getItem("fname");
+			document.getElementById("show-email").innerHTML = "Email is : " + localStorage.getItem("femail");
+			document.getElementById("show-gender").innerHTML = "Gender is : " + localStorage.getItem("fgender");
+			document.getElementById("show-age").innerHTML = "Age is : " + localStorage.getItem("fage");
+			return false;
+		}
+
+	</script>
+</body>
+
+</html>
