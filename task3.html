@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Javascript - task 3</title>
+	<style type="text/css">
+		.form-wrapper h2 {
+			text-align: center;
+			margin-bottom: 30px;
+		}
+		form.custom-form {
+		    max-width: 500px;
+		    margin: 50px auto;
+		}
+		.form-group label {
+		    display: block;
+		    margin-bottom: 6px;
+		    text-align: left;
+		}
+		.form-group {
+			margin-bottom: 15px;
+			text-align: center;
+		}
+		.form-group input {
+			width: 100%;
+			border: 1px solid #aaa;
+			border-radius: 5px;
+			height: 34px;
+			padding: 5px 15px;
+			box-sizing: border-box;
+			outline: none;
+		}
+		.form-group button {
+			background: #777;
+			color: #fff;
+			border-color: #aaa;
+			padding: 9px 15px;
+			border-radius: 5px;
+			box-shadow: none;
+			outline: none;
+			font-size: 16px;
+			font-weight: 600;
+			border: none;
+			display: inline-block;
+			margin: 10px auto;
+			cursor: pointer;
+		}
+		.form-group input.valid , .form-group input.valid:focus-visible {
+		    border-color: green;
+		}
+		.form-group input.invalid, .form-group input.invalid:focus-visible {
+		    border-color: red;
+		}
+		.form-group button:disabled {
+		    cursor: no-drop;
+		    opacity: 0.4;
+		}
+	</style>
+</head>
+<body>
+     <div class="form-wrapper">
+     	<h2>JavaScript Task - 3</h2>
+	     <form class="custom-form" name="myForm" onsubmit="return validateForm();" method="post">
+		  	<div class="form-group">
+		  		<label>Name</label>
+		  		<input type="text" name="Name" class="untouched" onkeyup="validateName()" />
+		  	</div>
+		  	<div class="form-group">
+		  		<label>Email</label>
+		  		<input type="text" name="Email" class="untouched" class="untouched" onkeyup="validateEmail()" />
+		  	</div>
+		  	<div class="form-group">
+		  		<label>Phone Number</label>
+		  		<input type="text" name="Phone" class="untouched" onkeyup="validatePhone()" />
+		  	</div>
+		  	<div class="form-group">
+		  		<label>Zipcode</label>
+		  		<input type="text" name="Zipcode" class="untouched" onkeyup="validateZipcode()" />
+		  	</div>
+		  	<div class="form-group">
+		  		<label>Date of Birth</label>
+		  		<input placeholder="mm-dd-yyyy or mm/dd/yyyy"  class="untouched" type="text" name="Date" onkeyup="validateDate()" />
+		  	</div>
+		  	<div class="form-group">
+		  		<button id="submit" type="submit" disabled>Submit</button>
+		  	</div>
+		</form>
+	</div>
+	<script type="text/javascript">
+		// "use strict";
+		function validateForm() {
+			window.alert("Data submitted successfully");
+			return true;
+		}
+
+		function validateName() {
+			let name = document.forms.myForm.Name;
+			name.classList.remove("untouched");
+			if (name.value == "") {
+				// window.alert("Please enter name");
+				name.focus();
+				name.classList.add("invalid");
+				return false;
+			}
+			if (!isNaN(name.value)) {
+				// window.alert("Please enter valid name");
+				name.focus();
+				name.classList.add("invalid");
+				return false;
+			}
+			name.classList.remove("invalid");
+			name.classList.add("valid");
+
+			showButton();
+			return true;
+		}
+		function validateEmail() {
+			let email = document.forms.myForm.Email;
+			let emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g;
+			email.classList.remove("untouched");
+			if (email.value == "") {
+				email.focus();
+				email.classList.add("invalid");
+				return false;
+			}
+			if (!emailPattern.test(email.value)) {
+				email.focus();
+				email.classList.add("invalid");
+				return false;
+			}
+			email.classList.remove("invalid");
+			email.classList.add("valid");
+
+			showButton();
+			return true;
+		}
+		function validatePhone() {
+			let phone = document.forms.myForm.Phone;
+			phone.classList.remove("untouched");
+			let phonePattern=/^\d{10}$/;
+			if (phone.value == "") {
+				phone.focus();
+				phone.classList.add("invalid");
+				return false;
+			}
+			if (!phonePattern.test(phone.value)) {
+				phone.focus();
+				phone.classList.add("invalid");
+				return false;
+			}
+			phone.classList.remove("invalid");
+			phone.classList.add("valid");
+
+			showButton();
+			return true;
+		}
+		function validateZipcode() {
+			let zipcode = document.forms.myForm.Zipcode;
+			zipcode.classList.remove("untouched");
+			let zipcoePattern = /^[1-9]{1}[0-9]{2}\s{0,1}[0-9]{3}$/;
+			if (zipcode.value == "") {
+				zipcode.focus();
+				zipcode.classList.add("invalid");
+				return false;
+			}
+			if (!zipcoePattern.test(zipcode.value)) {
+				zipcode.focus();
+				zipcode.classList.add("invalid");
+				return false;
+			}
+			zipcode.classList.remove("invalid");
+			zipcode.classList.add("valid");
+
+			showButton();
+			return true;
+		}
+		function validateDate() {
+			let birthdate = document.forms.myForm.Date;
+			birthdate.classList.remove("untouched");
+			let datePattern = /^(0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])[\/\-]\d{4}$/;
+				if (birthdate.value == "") {
+				// window.alert("Please enter birthdate");
+				birthdate.focus();
+				birthdate.classList.add("invalid");
+				return false;
+			}
+			if(datePattern.test(birthdate.value))
+			{
+
+		  		birthdate.focus();
+			  	//Test which seperator is used '/' or '-'
+			  	var opera1 = birthdate.value.split('/');
+			  	var opera2 = birthdate.value.split('-');
+			  	lopera1 = opera1.length;
+			  	lopera2 = opera2.length;
+			  	// Extract the string into month, date and year
+			  	if (lopera1>1)
+			  	{
+			  		var pdate = birthdate.value.split('/');
+			  	}
+			  	else if (lopera2>1)
+			  	{
+			  		var pdate = birthdate.value.split('-');
+			  	}
+			  	var mm  = parseInt(pdate[0]);
+			  	var dd = parseInt(pdate[1]);
+			  	var yy = parseInt(pdate[2]);
+			  	// Create list of days of a month [assume there is no leap year by default]
+			  	var ListofDays = [31,28,31,30,31,30,31,31,30,31,30,31];
+			  	if (mm==1 || mm>2)
+			  	{
+				  if (dd>ListofDays[mm-1])
+				  {
+				  // alert('Invalid date format!');
+				  birthdate.focus();
+				  birthdate.classList.add("invalid");
+				  return false;
+				  }
+		  		}
+			  	if (mm==2)
+			  	{
+			  		var lyear = false;
+				  	if ( (!(yy % 4) && yy % 100) || !(yy % 400)) 
+				  	{
+				  		lyear = true;
+				  	}
+				  	if ((lyear==false) && (dd>=29))
+				  	{
+				  		birthdate.focus();
+					  	// alert('Invalid date format!');
+					  	birthdate.classList.add("invalid");
+					  	return false;
+				  	}
+				  	if ((lyear==true) && (dd>29))
+				  	{				  		
+					  	// alert('Invalid date format!');
+					  	birthdate.focus();
+					  	birthdate.classList.add("invalid");
+					  	return false;
+				  	}
+			  	}
+			}
+			else
+			{
+			  	// alert("Invalid date format!");
+			  	birthdate.classList.add("invalid");
+			  	birthdate.focus();
+			  	return false;
+			}
+			birthdate.classList.remove("invalid");
+			birthdate.classList.add("valid");
+			showButton();
+			return true;
+		}
+
+		function showButton() {
+			const invalidLength = document.getElementsByClassName("invalid").length;
+			const untouchedLength = document.getElementsByClassName("untouched").length;
+			const submitBtn = document.getElementById("submit");
+			console.log(invalidLength);
+			if(invalidLength === 0 && (untouchedLength === 0)) {
+				submitBtn.disabled=false;
+			}
+		}
+	</script>
+</body>
+
+</html>
